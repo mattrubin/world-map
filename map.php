@@ -4,25 +4,22 @@ map.php
 Displays a map of the World color-coded to correspond with hit data
 */
 
-// connect to a database & load sales data into an array $states
-// with the state code as the key & current sales data as value
-//GET DATA!
 
 
-$image = imageCreatefrompng('WorldMapSmall.png') ;
+$image = imageCreatefrompng('WorldMapSmall.png');
+
 // set predetermined index for each region in image
-$index = array ('US' => 00, //United States
-				'CA' =>  1, //Canada
-				'IT' =>  2, //Italy
-				'BM' =>  3, //Bermuda
-				'AR' =>  4, //Argentina
-				'SV' =>  5, //El Salvador
-				'NO' =>  6, //Norway
-// for some reason, setting panama as 08 or use as 09 makes them 0???
-				'PA' =>  8, //Panama
-				'AE' =>  9, //United Arab Emirates
-				'IE' => 10, //Ireland
-				'GB' => 11 //Great Britain
+$index = array ('US' =>  0, // United States
+								'CA' =>  1, // Canada
+								'IT' =>  2, // Italy
+								'BM' =>  3, // Bermuda
+								'AR' =>  4, // Argentina
+								'SV' =>  5, // El Salvador
+								'NO' =>  6, // Norway
+								'PA' =>  8, // Panama
+								'AE' =>  9, // United Arab Emirates
+								'IE' => 10, // Ireland
+								'GB' => 11, // Great Britain
 );
 /*
 				'MX' => 38, //Mexico
@@ -40,24 +37,22 @@ $index = array ('US' => 00, //United States
 $colors = array();
 
 
-$color1 = (array_key_exists('color1',$_GET))?(substr($_GET['color1'],1)):("660099");
-$color2 = (array_key_exists('color2',$_GET))?(substr($_GET['color2'],1)):("0000FF");
-$color3 = (array_key_exists('color3',$_GET))?(substr($_GET['color3'],1)):("00FF00");
-$color4 = (array_key_exists('color4',$_GET))?(substr($_GET['color4'],1)):("FFFF00");
-$color5 = (array_key_exists('color5',$_GET))?(substr($_GET['color5'],1)):("FF0000");
+$color1 = (array_key_exists('color1', $_GET)) ? (substr($_GET['color1'],1)) : ("660099");
+$color2 = (array_key_exists('color2', $_GET)) ? (substr($_GET['color2'],1)) : ("0000FF");
+$color3 = (array_key_exists('color3', $_GET)) ? (substr($_GET['color3'],1)) : ("00FF00");
+$color4 = (array_key_exists('color4', $_GET)) ? (substr($_GET['color4'],1)) : ("FFFF00");
+$color5 = (array_key_exists('color5', $_GET)) ? (substr($_GET['color5'],1)) : ("FF0000");
 
-$cutoff1 = (array_key_exists('cutoff1',$_GET))?($_GET['cutoff1']):("2");
-$cutoff2 = (array_key_exists('cutoff2',$_GET))?($_GET['cutoff2']):("5");
-$cutoff3 = (array_key_exists('cutoff3',$_GET))?($_GET['cutoff3']):("10");
-$cutoff4 = (array_key_exists('cutoff4',$_GET))?($_GET['cutoff4']):("20");
+$cutoff1 = (array_key_exists('cutoff1', $_GET)) ? ($_GET['cutoff1']) : ("2");
+$cutoff2 = (array_key_exists('cutoff2', $_GET)) ? ($_GET['cutoff2']) : ("5");
+$cutoff3 = (array_key_exists('cutoff3', $_GET)) ? ($_GET['cutoff3']) : ("10");
+$cutoff4 = (array_key_exists('cutoff4', $_GET)) ? ($_GET['cutoff4']) : ("20");
 
-
-//print_r($index);
 
 
 // Set all indexed regions to white
 foreach ($index as $key => $value) {
-    imageColorset($image,$index[$key],255,255,255);
+    imageColorset($image, $index[$key], 255, 255, 255);
 }
 
 
@@ -91,53 +86,9 @@ if(count($colors)){
 }
 
 
-/*
-
-// convert sales data values to a color range
-$normalized = gradientFromRange($_GET);
-
-
-// In order to fade from blue to white, maximize the blue component
-// and then increase the other two components by the same value
-if(count($normalized)){
-	foreach ($normalized as $state => $color) {
-		$state = strtoupper($state);
-		if(array_key_exists($state, $index)){
-		    imageColorset($image,$index[$state],255,$color,$color);
-		}
-	}
-}
-
-*/
-
 
 header('Content-type: image/png'); 
 imagePng($image);
 imageDestroy($image);
-
-/**
- * @return array
- * @param $usa array states
- * @desc Normalizes an aray of a range of float values to integers
- *        representing gradient color values from 0 to 255
- */
-function gradientFromRange($data) {
-	$MAX_VALUE = 150;
-	$MIN_VALUE = 0;
-	if(count($data) == 0 || (max($data)-min($data) == 0)) return;
-    // calculate what we can outside of the for loop
-    $lowest = min($data);
-	if(count($data) == 1) $lowest = 0;
-    $ratio = $MAX_VALUE / ( max($data) - $lowest ) ;
-    foreach ($data as $key => $value) {
-        // subtract the lowest sales from the current sale to zero the figure
-        // then multiply by the $ratio to scale highest value to 255.
-        // Subtract total from 255 since color is additive,
-        // making lowest sales = highest color value (255)
-        // & higest sales = lowest color value (0)
-		$gradient[$key] = $MAX_VALUE + $MIN_VALUE - round(($value - $lowest) * $ratio)  ;
-    }
-    return $gradient ;
-}
 
 ?>
