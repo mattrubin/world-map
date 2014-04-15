@@ -16,6 +16,7 @@ $index = array ('US' =>  0, // United States
 								'AR' =>  4, // Argentina
 								'SV' =>  5, // El Salvador
 								'NO' =>  6, // Norway
+								'ES' =>  7, // Spain
 								'PA' =>  8, // Panama
 								'AE' =>  9, // United Arab Emirates
 								'IE' => 10, // Ireland
