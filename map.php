@@ -6,7 +6,7 @@ Displays a map of the World color-coded to correspond with hit data
 
 
 
-$image = imageCreatefrompng('WorldMapSmall.png');
+$image = imagecreatefrompng('WorldMapSmall.png');
 
 // set predetermined index for each region in image
 $index = array ('US' =>  0, // United States
