@@ -22,6 +22,7 @@ $index = array ('US' =>  0, // United States
 								'IE' => 10, // Ireland
 								'GB' => 11, // Great Britain
 								'BD' => 12, // Bangladesh
+								'TZ' => 13, // Tanzania
 );
 /*
 				'MX' => 38, //Mexico
