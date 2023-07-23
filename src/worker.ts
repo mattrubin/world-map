@@ -1,3 +1,5 @@
+import map from '../map.svg';
+
 /**
  * Welcome to Cloudflare Workers! This is your first worker.
  *
@@ -27,6 +29,8 @@ export interface Env {
 
 export default {
 	async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
-		return new Response('Hello World!');
+		const response = new Response(map);
+		response.headers.set('Content-type', 'image/svg+xml');
+		return response;
 	},
 };
