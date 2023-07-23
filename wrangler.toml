@@ -1,4 +1,4 @@
-name = "twilight-fog-4346"
+name = "world-map"
 main = "src/worker.ts"
 compatibility_date = "2023-07-17"
 
