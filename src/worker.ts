@@ -1,4 +1,4 @@
-import map from '../map.svg';
+import map from './map.svg';
 
 export interface Env {}
 
